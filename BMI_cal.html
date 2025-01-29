@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="BMI_cal.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="dis">
+            <input id="di" type="text" placeholder="YOUR BMI IS... " readonly>
+        </div>
+
+        <div id="units">
+            <input id="feet" type="number" min="2" max="8" autofocus>
+            <select id="sel1" aria-label="height">
+                <option value="fe" name="unit">Feet</option>
+                <option value="in" name="unit">Inch</option>
+    
+            </select>
+            <input id="inch" type="number" min="0" max="100" autofocus>
+            <select id="sel2">
+                <option value="in" name="unit">Inch</option>
+                <option value="cm" name="unit">Cm</option>
+            </select>
+            <br>
+            <br>
+
+            Male:-<input type="radio" class="dif" name="m" value="m">
+            Female:-<input type="radio" class="dif" name="m" value="m">
+            Other:-<input type="radio" class="dif" name="m">
+            <br>
+            <br>
+            Enter age:- <input id="AGE" type="number" max="120" min="2" placeholder="Optional">
+            <br>
+            <br>
+
+            ENTER WEIGHT:- <input id="weight" type="number" max="200" min="2" style="width:100px" placeholder="Weight in Kg" >
+            <br>
+            <br>
+            <br>
+
+            <P style="color:darkgreen;"> SAFE or <span style="color:red;"> not?</span> </P>
+            <input id="instr" type="text" placeholder="Instruction" readonly style="width:300px; height:30px;margin-left:20px;text-align:center ;">
+
+            <br>
+            <br>
+
+        </div>
+        
+            <diV id="end">
+
+                <button onclick="rst()" class="clear" type="reset">clear</button>
+                <button onclick="ans()" class="sub" type="submit">Submit</button>
+            </diV>
+
+    </div>
+
+
+</body>
+
+<script type="text/javascript">
+            
+    
+    
+        function ans() {
+            var val1 = document.getElementById("feet").value;
+            var val2 = document.getElementById("inch").value;
+            var weight=document.getElementById("weight").value;
+            
+            
+            var ope1=document.getElementById("sel1").value;
+            var ope2=document.getElementById("sel2").value;
+            var dis=document.getElementById("di");
+            var dis2=document.getElementById("instr");
+            
+            const feet=0.3048  //1 feet equal to 
+            const inch=0.0254 //1 inch equal to 0.0254meter
+            const c_me=0.01 //1 cm to 0.01 meter
+            console.log(val1,val2,ope1,ope2)
+            if ((ope1==ope2)){
+                dis.value="PLEASE CHANGE CONVERSION UNITs...";
+                dis.style.color= "red";
+                
+            }
+            else if (weight==""){
+                dis.value="PLEASE Fill Weight..!"; 
+                dis.style.color= "red"; 
+                dis.style.fontSize = "20px" }
+                
+            else if ((val1 || val2)==""){
+                dis.value="PLEASE Fill Values..!"; 
+                dis.style.color= "red"; 
+                dis.style.fontSize = "20px" 
+            
+            }
+            else if (ope1=="fe" && ope2=="in"){
+                
+                const feet_inch=((feet*val1)+(inch*val2))**2 ; //in meter ka square height
+                console.log(feet_inch.toFixed(2))
+                var bmi1=(weight/feet_inch);
+                dis.value = bmi1
+                dis.style.color="blue"; 
+                dis.style.fontSize="20px"
+            }
+                
+            else if  (ope1=="fe" && ope2=="cm"){
+                var feet_cm=((feet*val1)+(c_me*val2))**2
+                var bmi2=Math.ceil(weight/feet_cm);
+                console.log(bmi2)}
+            else if (ope1=="in" && ope2=="cm"){
+                var inch_me=((inch*val1)+(c_cm*val2))**2 //(some inch.some cm ) convert into meter
+                var bmi3 =Math.ceil(weight/inch_me);
+                dis.value = bmi3
+                dis.style.color="blue"; 
+                dis.style.fontSize="20px"
+            }
+            else{
+                dis.value = "some error !"
+                dis.style.color="red"; 
+                dis.style.fontSize="20px"
+            }
+            
+            //safe or not 
+            if ((dis.value)<=18.4){
+                dis2.value="UNDERWEIGHT "
+                
+            }
+            else if((dis.value>18) && (dis.value<=24.9)) {
+                dis2.value="NORMAL "
+                
+            }else if((dis.value>24.9) && (dis.value<=29.9)) {
+                dis2.value="NORMAL"
+                
+            }else {
+                dis2.value="OBESE"
+                
+            }
+            
+                
+    }
+
+</script>
+
+</html>
